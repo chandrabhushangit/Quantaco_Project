@@ -19,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
         """
         Check that the two password entries match.
         """
+        print('data is' , data)
         if data['password'] != data['password_confirm']:
             raise serializers.ValidationError("Passwords do not match")
         return data

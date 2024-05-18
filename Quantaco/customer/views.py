@@ -8,6 +8,7 @@ from .models import Customer
 from .serializers import CustomerSerializer
 
 class CustomerListCreateAPIView(generics.ListCreateAPIView):
+    # permission_classes = []
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
