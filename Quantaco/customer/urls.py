@@ -2,10 +2,10 @@ from django.urls import path
 
 from . import views 
 
-# /api/products/
+# /api/customers/
 urlpatterns = [
-    path('', views.product_list_create_view, name='product-list'),
-    path('<int:pk>/update/', views.product_update_view, name='product-edit'),
-    path('<int:pk>/delete/', views.product_destroy_view),
-    path('<int:pk>/', views.product_detail_view, name='product-detail')
+    path('', views.customer_list_create_view, name='customer-list'),
+    path('<int:pk>/update/', views.customer_update_view, name='customer-edit'),
+    path('<int:pk>/delete/', views.customer_destroy_view),
+    path('<int:pk>/', views.customer_detail_view, name='customer-detail')
 ]
