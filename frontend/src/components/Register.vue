@@ -103,7 +103,7 @@ export default{
             });  
         },
         async logout(){
-          this.$http.post('/logout/',{
+          this.$http.post('/user/logout/',{
             refresh_token: localStorage.getItem('refresh_token'),
             })
             .then(response => {
