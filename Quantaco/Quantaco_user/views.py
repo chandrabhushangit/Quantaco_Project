@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from rest_framework.views import APIView
 
 class UserListCreate(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -22,16 +22,14 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class LogoutView(GenericAPIView):
-    permission_classes = [IsAuthenticated]
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
 
-    def post(self, request, *args, **kwargs):
-        
-        
+    def post(self, request):
         try:
-            refresh_token = request.data["refresh"]
+            refresh_token = request.data["refresh_token"]
             token = RefreshToken(refresh_token)
             token.blacklist()
-            return Response(status=205)
+            return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
-            return Response("Token already deleted by Vue")
+            return Response(status=status.HTTP_400_BAD_REQUEST)
