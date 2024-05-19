@@ -6,9 +6,9 @@ from django.shortcuts import get_object_or_404
 
 from .models import Customer
 from .serializers import CustomerSerializer
-
+from rest_framework.permissions import  IsAuthenticated
 class CustomerListCreateAPIView(generics.ListCreateAPIView):
-    # permission_classes = []
+    permission_classes = (IsAuthenticated,)
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
@@ -20,6 +20,7 @@ class CustomerListCreateAPIView(generics.ListCreateAPIView):
 customer_list_create_view = CustomerListCreateAPIView.as_view()
 
 class CustomerDetailAPIView(generics.RetrieveAPIView):
+
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     
