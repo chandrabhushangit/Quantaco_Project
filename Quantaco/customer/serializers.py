@@ -27,6 +27,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         """
         Check that the last name contains only alphabetic characters and is not empty.
         """
+        print(value)
         if not value.isalpha():
             raise serializers.ValidationError("Last name must contain only alphabetic characters.")
         return value
@@ -42,9 +43,30 @@ class CustomerSerializer(serializers.ModelSerializer):
         return value
     def validate_phone_number(self, value):
         
-        # if not value.isdigit():
-        #     raise serializers.ValidationError("Phone number must contain only digits.")
-        if len(value) not in [10, 11, 12, 13, 14, 15]:
-            raise serializers.ValidationError("Phone number must be 10 to 15 digits long.")
+        if not (value.startswith('+') and value[1:].isdigit()) and not value.isdigit():
+            raise serializers.ValidationError("Phone number must contain only digits and may start with '+'.")
+        
+        if value.startswith('+'):
+            phone_length = len(value[1:])
+        else:
+            phone_length = len(value)
+
+        if phone_length not in [10, 11, 12, 13]:
+            raise serializers.ValidationError("Phone number must be 10 to 13 digits long, excluding the '+'.")
+        
         return value
+    
+    def validate(self, data):
+        """
+        Check for duplicate customer data.
+        """
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        date_of_birth = data.get('date_of_birth')
+        phone_number = data.get('phone_number')
+        
+        if Customer.objects.filter(first_name=first_name, last_name=last_name, date_of_birth=date_of_birth, phone_number=phone_number).exists():
+            raise serializers.ValidationError("A customer with these details already exists.")
+        
+        return data
    
