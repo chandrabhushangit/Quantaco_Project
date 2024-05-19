@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from datetime import date
 from .models import Customer
-
+import re
 
 class CustomerSerializer(serializers.ModelSerializer):
     
@@ -43,17 +43,9 @@ class CustomerSerializer(serializers.ModelSerializer):
         return value
     def validate_phone_number(self, value):
         
-        if not (value.startswith('+') and value[1:].isdigit()) and not value.isdigit():
-            raise serializers.ValidationError("Phone number must contain only digits and may start with '+'.")
-        
-        if value.startswith('+'):
-            phone_length = len(value[1:])
-        else:
-            phone_length = len(value)
-
-        if phone_length not in [10, 11, 12, 13]:
-            raise serializers.ValidationError("Phone number must be 10 to 13 digits long, excluding the '+'.")
-        
+        phone_pattern = re.compile(r'^(?:\+?\d{1,3})?[-. (]*(\d{1,4})[-. )]*(\d{1,4})[-. ]*(\d{1,9})$')
+        if not phone_pattern.match(value):
+            raise serializers.ValidationError("Invalid phone number format")
         return value
     
     def validate(self, data):

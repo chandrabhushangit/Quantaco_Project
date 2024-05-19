@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class UserListCreate(generics.ListCreateAPIView):
@@ -26,6 +27,11 @@ class LogoutView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         
-        return Response("logged out")
-        # except Token.DoesNotExist:
-        #     return Response({"detail": "Token not found."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=205)
+        except Exception as e:
+            return Response("Token already deleted by Vue")
