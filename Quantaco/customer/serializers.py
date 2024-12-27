@@ -34,7 +34,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     def validate_date_of_birth(self, value):
         """
-        Check that the date of birth is a valid date and the person is at least 18 years old.
+        Check that the date of birth is a valid date .
         """
         today = date.today()
         age = today.year - value.year - ((today.month, today.day) < (value.month, value.day))

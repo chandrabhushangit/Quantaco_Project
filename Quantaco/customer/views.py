@@ -8,7 +8,8 @@ from .models import Customer
 from .serializers import CustomerSerializer
 from rest_framework.permissions import  IsAuthenticated
 class CustomerListCreateAPIView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = []
+    # suthentication_classes
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 

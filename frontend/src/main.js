@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
+import DataTable from './components/DataTable.vue'
 import './index.css'
 
 const app = createApp(App,{ silent: true })
@@ -47,13 +48,21 @@ const routes = [
     name: 'Login' 
   },
   { 
-    path: '/quantaco/register', 
-    component: Register, 
-    name: 'Register', 
+    path: '/quantaco/DataTable', 
+    component: DataTable, 
+    name: 'DataTable', 
     meta: {
        requiresAuth: true,
     }
   },
+  // { 
+  //   path: '/quantaco/register', 
+  //   component: Register, 
+  //   name: 'Register', 
+  //   meta: {
+  //      requiresAuth: true,
+  //   }
+  // },
 ]
 
 const router = createRouter({
