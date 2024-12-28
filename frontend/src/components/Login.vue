@@ -32,7 +32,7 @@ export default{
                     localStorage.setItem('username', this.username);
                     localStorage.setItem('access_token', response.data.access);
                     localStorage.setItem('refresh_token', response.data.refresh);
-                    this.$router.push('/quantaco/register')
+                    this.$router.push('/quantaco/updisht/api/dashboard')
                 })
                 .catch(error => {
                     console.error(error)

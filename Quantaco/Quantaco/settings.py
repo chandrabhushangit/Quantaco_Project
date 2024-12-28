@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'customer',
     'rest_framework_simplejwt',
     'corsheaders',
+    'updisht'
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,15 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+        
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': [
+        
+#     ]
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
